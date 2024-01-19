@@ -1,64 +1,115 @@
 <template>
-<body>
-    <div class="app-container">
-      <questionbox/>
+  <div>
+    <div class="container">
+      <transition :name="$transition" mode="out-in">
+        <component :is="$actualPage"></component>
+      </transition>
     </div>
-  </body>
-
+  </div>
 </template>
 
 <script>
-import questionbox from '../src/components/QuestionBox.vue'
+import FaqCategories from './components/QuestionBox.vue'
+import Questions from './components/Questions.vue'
+import Answer from './components/Answer.vue'
 
 export default {
-
   components: {
-    questionbox,
+    FaqCategories,
+    Questions,
+    Answer
   },
-};
-  
-
-
-
-
+  computed: {
+    $actualPage() {
+      return this.$store.getters.$actualPage
+    },
+    $transition() {
+      return this.$store.getters.$transition
+    }
+  }
+}
 </script>
 
-<style>
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-  
-  body {
-    font-family: Lato;
-  }
-
-  .app-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; /* 100% da altura da viewport, para centralizar verticalmente */
+<style lang="scss">
+@font-face {
+  font-family: lato-bold;
+  src: url('../src/assets/Lato-Bold.ttf');
 }
-  
-  a {
-    color: #F5F6F8;
-    text-decoration: none;
-    font: normal normal normal 16px/19px Lato;
-  }
-  
-  @font-face {
-    font-family: Lato;
-    src: url('../src/assets/Lato-Bold.ttf');
-    font-weight: 400;
-    font-display: block;
-  }
-  
-  @font-face {
-    font-family: Lato;
-    src: url('../src/assets/Lato-Bold.ttf');
-    font-weight: 700;
-    font-display: block;
-  }
 
+@font-face {
+  font-family: lato-regular;
+  src: url('../src/assets/Lato-Bold.ttf');
+}
+
+body {
+  background-color: #f5f6f8;
+  font-family: lato-regular;
+
+  display: grid;
+
+  height: 100vh;
+
+  justify-content: center;
+  align-content: center;
+}
+
+img {
+  pointer-events: none;
+}
+
+.container {
+  width: 305px;
+  height: 460px;
+
+  position: relative;
+
+  border-radius: 15px;
+
+  box-shadow: 0px 10px 30px #3f445266;
+
+  background: linear-gradient(180deg, #3f4452 0%, #26282c 100%) 0% 0% no-repeat
+    padding-box;
+}
+
+.left-enter-from,
+.right-enter-from {
+  opacity: 0;
+}
+
+.left-enter-active,
+.right-enter-active,
+.left-leave-active,
+.right-leave-active {
+  transition: 0.4s;
+}
+
+.left-enter-to,
+.right-enter-to {
+  opacity: 1;
+}
+
+.left-leave-from,
+.right-leave-from {
+  opacity: 1;
+}
+
+.left-leave-to,
+.right-leave-to {
+  opacity: 0;
+}
+
+.made_by {
+  display: flex;
+  justify-content: center;
+
+  font-family: lato-bold;
+  color: #3f4452;
+
+  a {
+    text-decoration: none;
+    color: #2d9fa5;
+
+    cursor: pointer;
+  }
+}
 </style>
